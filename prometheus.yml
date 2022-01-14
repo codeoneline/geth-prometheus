@@ -16,4 +16,5 @@ scrape_configs:
   scheme: http
   static_configs:
   - targets:
-    - geth:6060
+    # - geth:6060
+    - 192.168.0.1:8001

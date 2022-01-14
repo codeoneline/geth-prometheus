@@ -2,14 +2,14 @@ version: '2.2'
 
 services:
 
-  geth:
-    image: chapsuk/geth:prometheus
-    container_name: dev_geth
-    ports:
-      - "10455:6060"
-      # - "10545:8545"
-    cpus: 0.3
-    command: --rinkeby --rpc --rpcaddr="0.0.0.0" --rpcvhosts="geth" --pprof --pprofaddr=0.0.0.0 --pprofport=6060 --metrics
+  # geth:
+  #   image: chapsuk/geth:prometheus
+  #   container_name: dev_geth
+  #   ports:
+  #     - "10455:6060"
+  #     # - "10545:8545"
+  #   cpus: 0.3
+  #   command: --rinkeby --rpc --rpcaddr="0.0.0.0" --rpcvhosts="geth" --pprof --pprofaddr=0.0.0.0 --pprofport=6060 --metrics
 
   grafana:
     image: grafana/grafana
@@ -29,3 +29,12 @@ services:
       - "10008:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
+# 设置docker和宿主在一个网段, 宿主ip为192.168.0.1
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 192.168.0.0/24
